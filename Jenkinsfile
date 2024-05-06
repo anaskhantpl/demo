@@ -6,14 +6,12 @@ pipeline {
         stage('GitCheckout') {
             steps {
 
-                checkout \
-                scm: [ $class : 'GitSCM', \
-                     branches: [[name: '*/main']], \
-                     extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'demo']], 
-                                 [ $class: 'ScmName', name: 'dev' ]], \
-                     userRemoteConfigs: [[ \
-                         url: 'https://github.com/anaskhantpl/dev.git'  \
-                     ]]
+        stage('Clone repositories') {
+            steps {
+                // Clone first repository
+                git branch: 'main', url: 'https://github.com/anaskhantpl/dev.git'
+            }
+        }
     
             }
         }
