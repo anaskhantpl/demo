@@ -3,16 +3,11 @@ pipeline {
     
     stages {
 
-        stage('GitCheckout') {
-            steps {
 
         stage('Clone repositories') {
             steps {
                 // Clone first repository
                 git branch: 'main', url: 'https://github.com/anaskhantpl/dev.git'
-            }
-        }
-    
             }
         }
 
