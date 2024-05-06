@@ -2,14 +2,16 @@ pipeline {
     agent any
     
     stages {
-        stage('Clone repositories') {
-            steps {
-                // Clone first repository
-                git branch: 'main', url: 'https://github.com/anaskhantpl/dev.git'
-                
 
+        stage('GitCheckout') {
+            steps {
+            checkout \
+                scm: [ $class : 'GitSCM', branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'dev']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/anaskhantpl/dev.git']]])]
             }
         }
+
+            
+        
         stage('Build and Test') {
             steps {
                 echo 'building'
@@ -17,8 +19,4 @@ pipeline {
         }
     }
     
-    // Define triggers
-    triggers {
-        pollSCM('* * * * *') // This will poll the second repository every minute
-    }
 }
