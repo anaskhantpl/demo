@@ -14,8 +14,7 @@ pipeline {
                      userRemoteConfigs: [[ \
                          url: 'https://github.com/anaskhantpl/dev.git'  \
                      ]]
-                ]
-                ]
+    
             }
         }
 
