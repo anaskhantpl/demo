@@ -1,8 +1,13 @@
 pipeline {
     agent any
 
-    triggers { // Configure trigger specifically for https://github.com/anaskhantpl/dev.git
-        scm([$class: 'GitSCM', branches: [[name: '*/main']],  extensions: [[$class: 'PollSCMChanges']], repositories: [[url: 'https://github.com/anaskhantpl/dev.git']]])
+    triggers {
+        scm([
+            $class: 'GitSCM', 
+            branches: [[name: '*/main']], 
+            extensions: [[$class: 'PollSCMChanges']], 
+            repositories: [[url: 'https://github.com/anaskhantpl/dev.git']]
+        ])
     }
 
     stages {
@@ -16,13 +21,13 @@ pipeline {
                     changelog: false,
                     poll: false, // Explicitly disable polling
                     scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/anaskhantpl/demo.git']]]
-                ])
+                )
             }
         }
 
         stage('Build and Test') {
             steps {
-                echo 'Building...' // Improved message clarity
+                echo 'Building...'
             }
         }
     }
