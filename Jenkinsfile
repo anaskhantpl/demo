@@ -1,17 +1,21 @@
 pipeline {
     agent any
 
+    triggers { // Configure trigger specifically for https://github.com/anaskhantpl/dev.git
+        scm([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubdir: false, extensions: [[$class: 'PollSCMChanges']], repositories: [[url: 'https://github.com/anaskhantpl/dev.git']]])
+    }
+
     stages {
         stage('Clone Repositories') {
             steps {
                 // Clone the first repository (https://github.com/anaskhantpl/dev.git)
                 git branch: 'main', url: 'https://github.com/anaskhantpl/dev.git'
 
-                // Check out the second repository using the provided configuration
+                // Checkout the second repository using the provided configuration (no polling)
                 checkout([
                     changelog: false,
-                    poll: false,
-                    scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: "https://github.com/anaskhantpl/demo.git"]]]
+                    poll: false, // Explicitly disable polling
+                    scm: [$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/anaskhantpl/demo.git']]]
                 ])
             }
         }
