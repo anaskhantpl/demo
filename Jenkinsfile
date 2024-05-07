@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers { // Configure trigger specifically for https://github.com/anaskhantpl/dev.git
-        scm([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubdir: false, extensions: [[$class: 'PollSCMChanges']], repositories: [[url: 'https://github.com/anaskhantpl/dev.git']]])
+        scm([$class: 'GitSCM', branches: [[name: '*/main']],  extensions: [[$class: 'PollSCMChanges']], repositories: [[url: 'https://github.com/anaskhantpl/dev.git']]])
     }
 
     stages {
