@@ -20,7 +20,5 @@ pipeline {
         }
     }
 
-        triggers {
-        pollSCM('* * * * *') // Polls every 5 minutes
-    }
+
 }
